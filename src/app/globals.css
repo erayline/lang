@@ -36,3 +36,21 @@ body {
   width: 25rem;
   height: 45rem;
 }
+
+
+::-webkit-scrollbar{
+  background-color: rgb(45, 45, 45);
+  width: .4rem;
+  border-radius: 1rem;
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: rgb(178, 190, 255);
+  border-radius: 1rem;
+}
+
+
+#myTextBubble::-webkit-scrollbar-corner{
+  border-radius: 0rem;
+  background-color:white;
+}
