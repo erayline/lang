@@ -3,6 +3,7 @@ import "./globals.css"
 
 import { Stage,Circle,Layer,Rect,Text,Group } from "react-konva";
 import {useState} from 'react';
+import TalkCard from '../components/TalkCard'
 
 export default function Home() {
     
@@ -27,6 +28,7 @@ export default function Home() {
 
     return (
         <main className='w-full h-screen bg-gray-950 flex flex-col items-center justify-center'>
+                
             <Stage draggable className="bg-slate-900" width={1024} height={500}>
                 <Layer>
                     {mapEmojis.map((element,index) => {
@@ -40,6 +42,14 @@ export default function Home() {
                                 width={110} height={110} align="center"
                                 verticalAlign="middle"
                                 text={element}
+                                onMouseEnter={(e) => {
+                                    const container = e.target.getStage().container();
+                                    container.style.cursor = 'pointer';
+                                  }}
+                                onMouseLeave={(e) => {
+                                    const container = e.target.getStage().container();
+                                    container.style.cursor = 'default';
+                                  }}
                                 fontSize={80}
                                 fill="white"
                                 onClick={() => (console.log(index))}
@@ -52,7 +62,12 @@ export default function Home() {
                 </Layer>
             </Stage>
 
+          
             <button className="border-2 rounded-3xl p-4 m-2" onClick={generateMap}>generate</button>
+        
+                    <TalkCard></TalkCard>
+
+          
           </main>
 
     );
