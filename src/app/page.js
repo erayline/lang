@@ -7,14 +7,14 @@ import TalkCard from '../components/TalkCard'
 
 export default function Home() {
     // random şekilde x adet konum nesnesi üreten bir şey kodla
-    let [mapEmojis,setMapEmojis] = useState([])
+    let [mapObjs,setMapObjs] = useState([{emoji:"🌉",name:"bridge"}])
 
     let [cardEmoji,setCardEmoji] = useState("e");
     let [cardTitle,setCardTitle] = useState("e");
 
     function handleCardItems(event,element, index){
-        setCardEmoji(element);
-        setCardTitle(index);
+        setCardEmoji(element.emoji);
+        setCardTitle(element.name);
     }
 
 
@@ -23,14 +23,40 @@ export default function Home() {
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-
+    
     function generateMap(){
-        let places=["🎢","🛖","🏛️","🏡","⛪","🏜️","🗻","🏤","🕋","🏥","🏦","🏨","🏯","🏭","🌉","🏫","🗼"]
-
-        setMapEmojis(t => []);
+        setMapObjs(t => []);
+        // 1024 600
+        let eachTileX = 28;
+        let eachTileY = 20;    
         
-        for(let i=0;i<10;i++){
-            setMapEmojis(t=>[...t,places[getRandomInt(0,places.length-1)]])
+        // emoji and name
+        let places=[
+            {emoji:"🎢",name:"park"},
+            {emoji:"🛖",name:"home"},
+            {emoji:"🏫",name:"school"},
+            {emoji:"💒",name:"church"},
+            {emoji:"🕌",name:"mousqe"},
+            {emoji:"🏥",name:"hospital"},
+            {emoji:"🏯",name:"china"}
+        ]
+        
+        //coord
+
+        for(let i = 0;i<5;i++){
+            let generatedX = getRandomInt(0,16) * eachTileX;
+            let generatedY = getRandomInt(0,12) * eachTileY;
+            let generatedEmojiNameObj = places[getRandomInt(0,places.length-1)];
+
+            let generatedPlace = {
+                emoji:generatedEmojiNameObj.emoji,
+                name:generatedEmojiNameObj.name,
+                xCord:generatedX,
+                yCord:generatedY,
+            }
+
+            setMapObjs((t) => [...t,generatedPlace])
+            console.log(mapObjs)
         }
 
     }
@@ -42,18 +68,17 @@ export default function Home() {
             <div className="w-2/3 h-screen bg-gray-950 flex flex-col items-center justify-center">
                 <Stage draggable className="bg-slate-900" width={1024} height={600}>
                     <Layer>
-                        {mapEmojis.map((element,index) => {
-                            // let xCord = getRandomInt(50,450);
-                            // let yCord = getRandomInt(0,200);
-                            let xCord = 10 + 40*index;
-                            let yCord = 10;
+                        {mapObjs.map((element,index) => {
+
+                            let xCord = element.xCord;
+                            let yCord = element.yCord;
                             return (
                             <Group key={index} x={xCord} y={yCord}>
                                 <Text 
                                     x={xCord} y={yCord}
                                     width={110} height={110} align="center"
                                     verticalAlign="middle"
-                                    text={element}
+                                    text={element.emoji}
                                     onMouseEnter={(e) => {
                                         const container = e.target.getStage().container();
                                         container.style.cursor = 'pointer';
