@@ -7,10 +7,10 @@ import TalkCard from '../components/TalkCard'
 
 export default function Home() {
     // random şekilde x adet konum nesnesi üreten bir şey kodla
-    let [mapObjs,setMapObjs] = useState([{emoji:"🌉",name:"bridge"}])
+    let [mapObjs,setMapObjs] = useState([])
 
-    let [cardEmoji,setCardEmoji] = useState("e");
-    let [cardTitle,setCardTitle] = useState("e");
+    let [cardEmoji,setCardEmoji] = useState("");
+    let [cardTitle,setCardTitle] = useState("");
 
     function handleCardItems(event,element, index){
         setCardEmoji(element.emoji);
