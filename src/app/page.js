@@ -27,7 +27,7 @@ export default function Home() {
 
     return (
         <main className='w-full h-screen bg-gray-950 flex flex-col items-center justify-center'>
-            <Stage draggable className="bg-slate-900" width={1024} height={window.innerHeight*2/3}>
+            <Stage draggable className="bg-slate-900" width={1024} height={700}>
                 <Layer>
                     {mapEmojis.map((element,index) => {
                         let xCord = getRandomInt(50,450);
