@@ -31,3 +31,8 @@ body {
     text-wrap: balance;
   }
 }
+
+.card-size{
+  width: 25rem;
+  height: 45rem;
+}
