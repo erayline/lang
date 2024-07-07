@@ -1,9 +1,14 @@
 import React from 'react'
+import '../app/globals.css'
 
-const TalkCard = () => {
+
+const TalkCard = (props) => {
   return (
-    <div>
-        <h2>eray</h2>
+    <div className='bg-slate-800 card-size rounded-3xl flex'>
+        <div className="flex m-3 h-20 flex-row  w-full items-center justify-around">
+          <h2 className='text-7xl relative'>{props.emoji}</h2>
+          <h2 className='text-4xl font-bold '>{props.title}</h2>
+        </div>
     </div>
   )
 }
