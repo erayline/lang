@@ -1,3 +1,4 @@
+"use client"
 import "./globals.css"
 
 import { Stage,Circle,Layer,Rect,Text,Group } from "react-konva";
