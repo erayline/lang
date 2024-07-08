@@ -4,6 +4,8 @@ import "./globals.css"
 import { Stage,Circle,Layer,Rect,Text,Group } from "react-konva";
 import {useState,useEffect} from 'react';
 import TalkCard from '../components/TalkCard'
+import generateMap from "@/functions/generatemap";
+
 
 export default function Home() {
     // random şekilde x adet konum nesnesi üreten bir şey kodla
@@ -32,42 +34,6 @@ export default function Home() {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
     
-    function generateMap(){
-        setMapObjs(t => []);
-        // 1024 600
-        let eachTileX = 28;
-        let eachTileY = 20;    
-        // emoji and name
-        let places=[
-            {emoji:"🎢",name:"park"},
-            {emoji:"🛖",name:"home"},
-            {emoji:"🏫",name:"school"},
-            {emoji:"💒",name:"church"},
-            {emoji:"🕌",name:"mosque"},
-            {emoji:"🏥",name:"hospital"},
-            {emoji:"🏯",name:"china"},
-            {emoji:"🪐",name:"NASA"},
-            {emoji:"🚢",name:"ship"},
-            {emoji:"🏪",name:"fastfood"},
-            {emoji:"⛺",name:"camping"},
-            {emoji:"❄️",name:"snowball"},
-            {emoji:"🌊",name:"surf"},
-            {emoji:"⛱️",name:"beach"}
-        ]        
-        for(let i = 0;i<5;i++){
-            let generatedX = getRandomInt(0,16) * eachTileX;
-            let generatedY = getRandomInt(0,12) * eachTileY;
-            let generatedEmojiNameObj = places[getRandomInt(0,places.length-1)];
-            let generatedPlace = {
-                emoji:generatedEmojiNameObj.emoji,
-                name:generatedEmojiNameObj.name,
-                xCord:generatedX,
-                yCord:generatedY,
-            }
-            setMapObjs((t) => [...t,generatedPlace])
-        }
-
-    }
 
     return (
         <main className='w-full h-screen bg-gray-950 flex flex-row-reverse items-center justify-around'>
@@ -109,7 +75,7 @@ export default function Home() {
                         })}
                     </Layer>
                 </Stage>
-                <button className="border-2 rounded-3xl p-4 m-2" onClick={generateMap}>generate</button>
+                <button className="border-2 rounded-3xl p-4 m-2" onClick={()=>generateMap(setMapObjs,getRandomInt)}>generate</button>
             </div>
         
 
