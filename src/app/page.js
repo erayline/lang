@@ -1,9 +1,9 @@
 "use client"
 import "./globals.css"
 
-import { Stage,Circle,Layer,Rect,Text,Group } from "react-konva";
+import { StageLayer,Stage,Layer,Text,Group } from "react-konva";
 import {useState,useEffect} from 'react';
-import TalkCard from '../../lib/components/TalkCard'
+import TalkCard from './components/TalkCard'
 import generateMap from "../../lib/functions/generatemap";
 
 

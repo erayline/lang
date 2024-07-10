@@ -1,6 +1,6 @@
 import React from 'react'
-import {useState,useEffect} from 'react';
-import '../../src/app/globals.css'
+import {useState} from 'react';
+import '../globals.css'
 
 
 const TalkCard = (props) => {
