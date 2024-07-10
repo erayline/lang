@@ -1,18 +1,34 @@
 import React from 'react'
 import {useState,useEffect} from 'react';
-import '../app/globals.css'
+import '../../src/app/globals.css'
 
 
 const TalkCard = (props) => {
 
-  let [chatHist,setChatHist] = useState(["hi eray how are you?"]);
 
-  function handleChatHistory(input){
-    setChatHist(t => [input,...t])
+  let [chatHist,setChatHist] = useState([{sender:"user",text:"hi"},{sender:"bot",text:"hi"}]);
+
+
+  async function getAnswer(){
+    let res = await fetch('http://localhost:3000/api/answer',{
+      method:'POST',
+      body: JSON.stringify(chatHist)
+    })
+    res = await res.json()
+
+    setChatHist(t => [...t,{sender:"bot",text:res.answer}])
+
+    console.log(res.answer);
+  }
+
+
+
+
+  function handleSubmit(input,sender){
+    setChatHist(t => [...t,{sender:sender,text:input}]);
   }
 
   
-
   return (
       <div className='bg-gray-950 card-size rounded-3xl flex flex-col scrollbar overflow-x-hidden border-green-300'>
           <div className="border-2 border-white p-12 rounded-3xl flex h-20 flex-row  w-full items-center justify-around">
@@ -20,17 +36,20 @@ const TalkCard = (props) => {
             <h2 className='text-4xl select-none font-bold'>{props.title}</h2>
           </div>
           <div className="overflow-scroll">
-            <div id="InputBubble">
-              <MyInputBubble callback={handleChatHistory}></MyInputBubble>
-            </div>
-            {chatHist.map((element,index)=>{
-              if(index%2===0){
-                return <MyBubble key={index} text={element}></MyBubble>
+
+            
+            {(chatHist).map((element,index)=>{
+              if(element.sender==="user"){
+                return <MyBubble key={index} text={element.text}></MyBubble>
               }else{
-                return <AIBubble key={index} text={element}></AIBubble>
+                return <AIBubble key={index} text={element.text}></AIBubble>
               }
             })}
 
+            <div id="InputBubble">
+              <MyInputBubble callback={handleSubmit}></MyInputBubble>
+              <button onClick={()=>getAnswer()}>cevap al</button>
+            </div>
           </div>
     </div>
 
@@ -64,7 +83,7 @@ export const MyInputBubble = (props) => {
   let [myInput,setMyInput] = useState("");
 
   function handleClickAnswer(){
-    props.callback(myInput)
+    props.callback(myInput,"user")
     setMyInput("");
   }
 
