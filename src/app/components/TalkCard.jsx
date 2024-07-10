@@ -6,7 +6,7 @@ import '../globals.css'
 const TalkCard = (props) => {
 
 
-  let [chatHist,setChatHist] = useState([{sender:"user",text:"hi"},{sender:"bot",text:"hi"}]);
+  let [chatHist,setChatHist] = useState([{sender:"user",text:"talk to me like you are a girl all the time, and give short answers, use a lot of emojis"},{sender:"bot",text:"hi"}]);
 
 
   async function getAnswer(){
@@ -60,7 +60,7 @@ const TalkCard = (props) => {
 export const AIBubble = (props) => {
   return (
     <div className='w-2/3 bg-blue-950 h-auto font-bold text-white p-4 m-5 rounded-2xl border border-blue-300'>
-      <h2 className='pb-2'>Gerry:</h2>
+      <h2 className='pb-2'>Jenny🍎:</h2>
       <p className=''>{props.text}</p>
     </div>
   )
