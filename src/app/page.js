@@ -8,13 +8,16 @@ import generateMap from "../../lib/functions/generatemap";
 
 
 export default function Home() {
+
+
+    
     // random şekilde x adet konum nesnesi üreten bir şey kodla
     let [mapObjs,setMapObjs] = useState([])
     let [cardEmoji,setCardEmoji] = useState("");
     let [cardTitle,setCardTitle] = useState("");
 
 
-    
+
     //when click emoji, remove the hidden class
     function handleClickEmoji(event,element, index){
         document.getElementById("TalkCard").classList.remove('hidden');
@@ -73,7 +76,6 @@ export default function Home() {
                                     onClick={((event) => handleClickEmoji(event,element,index))}
                                     >
                                 </Text>
-
                             </Group>
                             )
                         })}
