@@ -10,16 +10,19 @@ import generateMap from "../../lib/functions/generatemap";
 export default function Home() {
     // random şekilde x adet konum nesnesi üreten bir şey kodla
     let [mapObjs,setMapObjs] = useState([])
-
     let [cardEmoji,setCardEmoji] = useState("");
     let [cardTitle,setCardTitle] = useState("");
 
+
+    
+    //when click emoji, remove the hidden class
     function handleClickEmoji(event,element, index){
         document.getElementById("TalkCard").classList.remove('hidden');
         setCardEmoji(element.emoji);
         setCardTitle(element.name);
     }
 
+    //when press esc close the talking card
     useEffect(()=>{
         document.addEventListener("keydown",(event)=>{
             if(event.key === "Escape" || event.key === "Esc"){
@@ -28,6 +31,7 @@ export default function Home() {
         })
     })
 
+    //random Int function
     function getRandomInt(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
