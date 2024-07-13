@@ -2,12 +2,20 @@ import React, { useState, useEffect, useCallback } from 'react';
 import '../globals.css';
 
 const TalkCard = (props) => {
+  
+  // chat history and myInput for texting.
   const [chatHist, setChatHist] = useState([
-    { sender: "user", text: "talk to me like you are a girl all the time, and give short answers, speak english, use a lot of emojis" },
+    { sender: "user", text: "talk to me like you are in a church, and give short answers, speak english, use a lot of emojis, and make sure to ask me something so I can reply" },
     { sender: "bot", text: "hi" }
   ]);
   const [myInput, setMyInput] = useState("");
 
+
+  
+
+  ////get answer from GeminiAPI with route.
+  // directly adds answer to chatHistory. with the name "bot"
+  //!if the last message is from "user" it works
   const getAnswer = useCallback(async () => {
     if (chatHist[chatHist.length - 1].sender === "user") {
       let res = await fetch('http://localhost:3000/api/answer', {
@@ -18,10 +26,20 @@ const TalkCard = (props) => {
       setChatHist(prev => [...prev, { sender: "bot", text: res.answer }]);
     }
   }, [chatHist]);
-
+  //if dependencies changes it runs getAnswer
   useEffect(() => {
     getAnswer();
   }, [chatHist, getAnswer]);
+  
+  
+  //adds event listener and removes when it unmounts
+  useEffect(() => {
+    const inputElement = document.getElementById("InputBubble");
+    inputElement.addEventListener("keydown", handleKeyDown);
+    return () => {
+      inputElement.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [myInput]); //and when my input changes it runs return  
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -29,14 +47,7 @@ const TalkCard = (props) => {
     }
   };
 
-  useEffect(() => {
-    const inputElement = document.getElementById("InputBubble");
-    inputElement.addEventListener("keydown", handleKeyDown);
-    return () => {
-      inputElement.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [myInput]);
-
+  //resets myInput, adds 
   const handleSubmit = (input, sender) => {
     setChatHist(prev => [...prev, { sender, text: input }]);
     setMyInput("");
