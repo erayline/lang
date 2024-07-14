@@ -46,7 +46,7 @@ const TalkCard = (props) => {
   };
 
   const handleSubmit = (input, sender) => {
-    if(input.length >= 30){
+    if(input.length >= 50){
       props.setChatHist((prev) =>
         prev.map((element) =>
           element.id === props.chatIndex
@@ -70,7 +70,7 @@ const TalkCard = (props) => {
       </div>
       <div className="overflow-scroll">
         {props.chatHist[props.chatIndex].chat.map((element, index) => {
-          if(index>1){
+          if(index>2){
             return element.sender === "user" ? (
               <MyBubble key={index} text={element.text} />
             ) : (
@@ -97,7 +97,7 @@ const MyInputBubble = ({ handleMyInput, value }) => {
         onChange={(e) => handleMyInput(e.target.value)}
         className="text-white bg-gray-700 rounded-2xl font-bold h-16 w-2/3 p-2 rounded-1xl"
       />
-      <p>{value.length}/{30}</p>
+      <p>{value.length}/{50}</p>
     </div>
   );
 };
