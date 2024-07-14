@@ -1,45 +1,43 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import '../globals.css';
+import React, { useState, useEffect, useCallback } from "react";
+import "../globals.css";
 
 const TalkCard = (props) => {
-  
-  // chat history and myInput for texting.
-  const [chatHist, setChatHist] = useState([
-    { sender: "user", text: "talk to me like you are in a church, and give short answers, speak english, use a lot of emojis, and make sure to ask me something so I can reply" },
-    { sender: "bot", text: "hi" }
-  ]);
+
+  //props gives -> card emoji, card title, chat index, chatHist and setChatHist
+
+
   const [myInput, setMyInput] = useState("");
 
-
-  
-
-  ////get answer from GeminiAPI with route.
-  // directly adds answer to chatHistory. with the name "bot"
-  //!if the last message is from "user" it works
   const getAnswer = useCallback(async () => {
-    if (chatHist[chatHist.length - 1].sender === "user") {
-      let res = await fetch('http://localhost:3000/api/answer', {
-        method: 'POST',
-        body: JSON.stringify(chatHist)
+    let currentChat = props.chatHist[props.chatIndex].chat;
+    if (currentChat[currentChat.length - 1].sender === "user") {
+      let res = await fetch("http://localhost:3000/api/answer", {
+        method: "POST",
+        body: JSON.stringify(currentChat),
       });
+
       res = await res.json();
-      setChatHist(prev => [...prev, { sender: "bot", text: res.answer }]);
+      props.setChatHist((prev) =>
+        prev.map((element) =>
+          element.id === props.chatIndex
+            ? { ...element, chat: [...element.chat, { sender: "bot", text: res.answer }] }
+            : element
+        )
+      );
     }
-  }, [chatHist]);
-  //if dependencies changes it runs getAnswer
+  }, [props.chatHist, props.chatIndex]);
+
   useEffect(() => {
     getAnswer();
-  }, [chatHist, getAnswer]);
-  
-  
-  //adds event listener and removes when it unmounts
+  }, [props.chatHist, getAnswer]);
+
   useEffect(() => {
     const inputElement = document.getElementById("InputBubble");
     inputElement.addEventListener("keydown", handleKeyDown);
     return () => {
       inputElement.removeEventListener("keydown", handleKeyDown);
     };
-  }, [myInput]); //and when my input changes it runs return  
+  }, [myInput]);
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -47,24 +45,41 @@ const TalkCard = (props) => {
     }
   };
 
-  //resets myInput, adds 
   const handleSubmit = (input, sender) => {
-    setChatHist(prev => [...prev, { sender, text: input }]);
-    setMyInput("");
+    if(input.length >= 30){
+      props.setChatHist((prev) =>
+        prev.map((element) =>
+          element.id === props.chatIndex
+            ? { ...element, chat: [...element.chat, { sender: sender, text: input }] }
+            : element
+        )
+      );
+      setMyInput("");
+    }
   };
 
+  if (!props.chatHist[props.chatIndex]) {
+    return <div>Chat not found</div>;
+  }
+
   return (
-    <div className='bg-gray-950 card-size rounded-3xl flex flex-col scrollbar overflow-x-hidden border-green-300'>
+    <div className="bg-gray-950 card-size rounded-3xl flex flex-col scrollbar overflow-x-hidden border-green-300">
       <div className="border-2 border-white p-12 rounded-3xl flex h-20 flex-row w-full items-center justify-around">
-        <h2 className='text-7xl select-none relative'>{props.emoji}</h2>
-        <h2 className='text-4xl select-none font-bold'>{props.title}</h2>
+        <h2 className="text-7xl select-none relative">{props.emoji}</h2>
+        <h2 className="text-4xl select-none font-bold">{props.title}</h2>
       </div>
       <div className="overflow-scroll">
-        {chatHist.map((element, index) => (
-          element.sender === "user" ? 
-            <MyBubble key={index} text={element.text} /> :
-            <AIBubble key={index} text={element.text} />
-        ))}
+        {props.chatHist[props.chatIndex].chat.map((element, index) => {
+          if(index>1){
+            return element.sender === "user" ? (
+              <MyBubble key={index} text={element.text} />
+            ) : (
+              <AIBubble key={index} text={element.text} />
+            )
+          }
+
+        }
+        )}
         <div id="InputBubble">
           <MyInputBubble handleMyInput={setMyInput} value={myInput} />
         </div>
@@ -80,16 +95,17 @@ const MyInputBubble = ({ handleMyInput, value }) => {
         type="text"
         value={value}
         onChange={(e) => handleMyInput(e.target.value)}
-        className='text-white bg-gray-700 rounded-2xl font-bold h-16 w-2/3 p-2 rounded-1xl'
+        className="text-white bg-gray-700 rounded-2xl font-bold h-16 w-2/3 p-2 rounded-1xl"
       />
+      <p>{value.length}/{30}</p>
     </div>
   );
 };
 
 const AIBubble = ({ text }) => {
   return (
-    <div className='w-2/3 bg-blue-950 h-auto font-bold text-white p-4 m-5 rounded-2xl border border-blue-300'>
-      <h2 className='pb-2'>Jenny🍎:</h2>
+    <div className="w-2/3 bg-blue-950 h-auto font-bold text-white p-4 m-5 rounded-2xl border border-blue-300">
+      <h2 className="pb-2">Jenny🍎:</h2>
       <p>{text}</p>
     </div>
   );
@@ -98,7 +114,7 @@ const AIBubble = ({ text }) => {
 const MyBubble = ({ text }) => {
   return (
     <div className="w-full flex justify-end">
-      <div className='w-2/3 bg-zinc-950 h-auto font-bold text-white p-4 m-5 rounded-2xl border border-white'>
+      <div className="w-2/3 bg-zinc-950 h-auto font-bold text-white p-4 m-5 rounded-2xl border border-white">
         <h2 className="pb-2">me:</h2>
         <p>{text}</p>
       </div>

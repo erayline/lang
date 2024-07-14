@@ -10,12 +10,65 @@ import generateMap from "../../lib/functions/generatemap";
 export default function Home() {
 
 
-    
     // random şekilde x adet konum nesnesi üreten bir şey kodla
     let [mapObjs,setMapObjs] = useState([])
     let [cardEmoji,setCardEmoji] = useState("");
     let [cardTitle,setCardTitle] = useState("");
+    let [chatIndex,setchatIndex] = useState(0);
+    const [chatHist, setChatHist] = useState([
+        {
+          id: 0,
+          chat: [
+            {
+              sender: "user",
+              text: "and give short answers, speak english, use a lot of emojis, and make sure to ask me something so I can reply",
+            },
+            { sender: "bot", text: "hi" },
+          ],
+        },
+        {
+          id: 1,
+          chat: [
+            {
+              sender: "user",
+              text: " and give short answers, speak english, use a lot of emojis, and make sure to ask me something so I can reply",
+            },
+            { sender: "bot", text: "hi" },
+          ],
+        },
+        {
+          id: 2,
+          chat: [
+            {
+              sender: "user",
+              text: " and give short answers, speak english, use a lot of emojis, and make sure to ask me something so I can reply",
+            },
+            { sender: "bot", text: "hi" },
+          ],
+        },
+        {
+          id: 3,
+          chat: [
+            {
+              sender: "user",
+              text: "and give short answers, speak english, use a lot of emojis, and make sure to ask me something so I can reply",
+            },
+            { sender: "bot", text: "hi" },
+          ],
+        },
+        {
+          id: 4,
+          chat: [
+            {
+              sender: "user",
+              text: "and give short answers, speak english, use a lot of emojis, and make sure to ask me something so I can reply",
+            },
+            { sender: "bot", text: "hi" },
+          ],
+        },
+      ]);
 
+    
 
 
     //when click emoji, remove the hidden class
@@ -23,6 +76,15 @@ export default function Home() {
         document.getElementById("TalkCard").classList.remove('hidden');
         setCardEmoji(element.emoji);
         setCardTitle(element.name);
+        setChatHist((prev) =>
+            prev.map((element) =>
+              element.id === index
+                ? (element.chat.length>2? element : { id:index, chat: [{sender:"user",text:`talk to me like you are in a ${mapObjs[index].name}, and give short answers, speak english, use a lot of emojis, and make sure to ask me something so I can reply`},...element.chat] })
+                : element
+            )
+          );
+        setchatIndex(index);
+        console.log(chatIndex);
     }
 
     //when press esc close the talking card
@@ -45,7 +107,7 @@ export default function Home() {
     return (
         <main className='w-full h-screen bg-gray-950 flex flex-row-reverse items-center justify-around'>
             <div className="hidden" id="TalkCard">
-                <TalkCard emoji={cardEmoji} title={cardTitle}></TalkCard>
+                <TalkCard chatIndex={chatIndex} emoji={cardEmoji} title={cardTitle} chatHist={chatHist} mapObjs={mapObjs} setChatHist={setChatHist}></TalkCard>
             </div>
             
 
@@ -83,9 +145,6 @@ export default function Home() {
                 </Stage>
                 <button className="border-2 rounded-3xl p-4 m-2" onClick={()=>generateMap(setMapObjs,getRandomInt)}>generate</button>
             </div>
-        
-
-          
           </main>
 
     );
