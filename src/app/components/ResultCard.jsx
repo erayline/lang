@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import parseText from "html-react-parser";
 
 const ResultCard = (props) => {
   let [resultText0, setResultText0] = useState("");
@@ -75,17 +74,17 @@ const ResultCard = (props) => {
       <h2 className="text-6xl">
         {props.mapObjs[0].emoji == 0 ? "" : props.mapObjs[0].emoji}
       </h2>
-      <p>{parseText(resultText0)}</p>
+      <p>{resultText0}</p>
 
       <h2 className="text-6xl">
         {props.mapObjs[1].emoji == "0" ? "" : props.mapObjs[1].emoji}
       </h2>
-      <p>{parseText(resultText1)}</p>
+      <p>{resultText1}</p>
 
       <h2 className="text-6xl">
         {props.mapObjs[2].emoji == "0" ? "" : props.mapObjs[2].emoji}
       </h2>
-      <p>{parseText(resultText2)}</p>
+      <p>{resultText2}</p>
     </div>
   );
 };
