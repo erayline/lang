@@ -97,7 +97,7 @@ const MyInputBubble = ({ handleMyInput, value }) => {
         onChange={(e) => handleMyInput(e.target.value)}
         className="text-white bg-gray-700 rounded-2xl font-bold h-16 w-2/3 p-2 rounded-1xl"
       />
-      <p>{value.length}/{20}</p>
+      <p className="text-white">{value.length}/{20}</p>
     </div>
   );
 };
