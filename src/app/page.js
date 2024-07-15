@@ -37,7 +37,7 @@ export default function Home() {
       chat: [
         {
           sender: "user",
-          text: "and give short answers, speak english, use a lot of emojis, and make sure to ask me something so I can reply",
+          text: "and give short answers, speak english,talk like a girl, use a lot of emojis, and make sure to ask me something so I can reply",
         },
         { sender: "bot", text: "hi" },
       ],
@@ -47,7 +47,7 @@ export default function Home() {
       chat: [
         {
           sender: "user",
-          text: " and give short answers, speak english, use a lot of emojis, and make sure to ask me something so I can reply",
+          text: " and give short answers, speak english,talk like a girl use a lot of emojis, and make sure to ask me something so I can reply",
         },
         { sender: "bot", text: "hi" },
       ],
@@ -57,7 +57,7 @@ export default function Home() {
       chat: [
         {
           sender: "user",
-          text: " and give short answers, speak english, use a lot of emojis, and make sure to ask me something so I can reply",
+          text: " and give short answers, speak english,talk like a girl use a lot of emojis, and make sure to ask me something so I can reply",
         },
         { sender: "bot", text: "hi" },
       ],
@@ -67,7 +67,7 @@ export default function Home() {
       chat: [
         {
           sender: "user",
-          text: "and give short answers, speak english, use a lot of emojis, and make sure to ask me something so I can reply",
+          text: "and give short answers, speak english,talk like a girl use a lot of emojis, and make sure to ask me something so I can reply",
         },
         { sender: "bot", text: "hi" },
       ],
@@ -77,7 +77,7 @@ export default function Home() {
       chat: [
         {
           sender: "user",
-          text: "and give short answers, speak english, use a lot of emojis, and make sure to ask me something so I can reply",
+          text: "and give short answers, speak english,talk like a girl use a lot of emojis, and make sure to ask me something so I can reply",
         },
         { sender: "bot", text: "hi" },
       ],
