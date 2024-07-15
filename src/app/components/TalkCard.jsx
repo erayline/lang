@@ -70,7 +70,7 @@ const TalkCard = (props) => {
       </div>
       <div className="overflow-scroll">
         {props.chatHist[props.chatIndex].chat.map((element, index) => {
-          if(index>2){
+          if(index>1){
             return element.sender === "user" ? (
               <MyBubble key={index} text={element.text} />
             ) : (
