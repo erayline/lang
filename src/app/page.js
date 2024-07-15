@@ -95,7 +95,7 @@ export default function Home() {
     setChatHist((prev) =>
       prev.map((element) =>
         element.id === index
-          ? (element.chat.length <2 ? element : { id: index, chat: [{ sender: "user", text: `talk to me like we are in ${mapObjs[index].name}, and give short answers,your name is jenny, speak english, use a lot of emojis, and make sure to ask me something so I can reply` }, ...element.chat] })
+          ? (element.chat.length >2 ? element : { id: index, chat: [{ sender: "user", text: `talk to me like we are in ${mapObjs[index].name}, and give short answers,your name is jenny, speak english, use a lot of emojis, and make sure to ask me something so I can reply` }, ...element.chat] })
           : element
       )
     );
