@@ -63,7 +63,7 @@ const ResultCard = (props) => {
   return (
     <div className="w-2/3">
       <button
-        className="border-2 p-2 hover:bg-white hover:text-black rounded-l"
+        className="border-2 p-2 text-white hover:bg-white hover:text-black rounded-l"
         onClick={() => getResults()}
       >
         get results(wait)
