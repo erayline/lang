@@ -127,7 +127,7 @@ export default function Home() {
 
 
   return (
-    <main className='w-full overflow-x-hidden h-screen bg-gray-950 flex flex-col items-center justify-around'>
+    <main className='w-full overflow-x-hidden h-screen bg-gray-950 flex flex-col items-center justify-around m-2'>
       <div className='w-full h-screen bg-gray-950 flex flex-row-reverse items-center justify-around'>
         <div className="hidden" id="TalkCard">
           <TalkCard chatIndex={chatIndex} emoji={cardEmoji} title={cardTitle} chatHist={chatHist} mapObjs={mapObjs} setChatHist={setChatHist}></TalkCard>
