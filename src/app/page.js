@@ -1,7 +1,7 @@
 "use client"
 import "./globals.css"
 
-import { StageLayer, Stage, Layer, Text, Group } from "react-konva";
+import { Image, Stage, Layer, Text, Group } from "react-konva";
 import { useState, useEffect } from 'react';
 import TalkCard from './components/TalkCard'
 import generateMap from "../../lib/functions/generatemap";
@@ -86,7 +86,6 @@ export default function Home() {
 
 
 
-
   //when click emoji, remove the hidden class
   function handleClickEmoji(event, element, index) {
     document.getElementById("TalkCard").classList.remove('hidden');
@@ -118,6 +117,28 @@ export default function Home() {
     })
   })
 
+  const URLImage = ({ src }) => {
+    const [image, setImage] = useState(null);
+  
+    useEffect(() => {
+      const img = new window.Image();
+      img.src = src;
+      img.onload = () => {
+        setImage(img);
+      };
+    }, [src]);
+  
+    return image ? (
+      <Image
+        image={image}
+        x={0}
+        y={0}
+        width={850}  // Adjust according to your needs
+        height={520} // Adjust according to your needs
+      />
+    ) : null;
+  };
+
   //random Int function
   function getRandomInt(min, max) {
     min = Math.ceil(min);
@@ -125,7 +146,7 @@ export default function Home() {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-
+//arkada harita olacak üsttekiler 
   return (
     <main className='w-full overflow-x-hidden h-screen bg-gray-950 flex flex-col items-center justify-around p-2'>
       <div className='w-full h-screen bg-gray-950 flex flex-row-reverse items-center justify-around'>
@@ -135,17 +156,18 @@ export default function Home() {
         <div className="w-2/3 h-screen bg-gray-950 flex flex-col items-center justify-center">
           <Stage draggable className="bg-slate-900" width={1024} height={600}>
             <Layer>
+              <URLImage src={"https://raw.githubusercontent.com/erayline/flutter_derslerim/main/map.jpeg"}></URLImage>
               {mapObjs.map((element, index) => {
 
                 let xCord = element.xCord;
                 let yCord = element.yCord;
                 return (
                   <Group key={index} x={xCord} y={yCord}>
-                    <Text
+                    <Text draggable
                       x={xCord} y={yCord}
                       width={110} height={110} align="center"
                       verticalAlign="middle"
-                      text={element.emoji}
+                      text={element.emoji +" " + element.name}
                       onMouseEnter={(e) => {
                         const container = e.target.getStage().container();
                         container.style.cursor = 'pointer';
@@ -155,6 +177,7 @@ export default function Home() {
                         container.style.cursor = 'default';
                       }}
                       fontSize={80}
+                      
                       fill="white"
                       onClick={((event) => handleClickEmoji(event, element, index))}
                     >
