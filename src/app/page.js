@@ -131,10 +131,10 @@ export default function Home() {
     return image ? (
       <Image
         image={image}
-        x={0}
-        y={0}
-        width={850}  // Adjust according to your needs
-        height={520} // Adjust according to your needs
+        x={-60}
+        y={-60}
+        width={900}  // Adjust according to your needs
+        height={500} // Adjust according to your needs
       />
     ) : null;
   };
@@ -154,9 +154,9 @@ export default function Home() {
           <TalkCard chatIndex={chatIndex} emoji={cardEmoji} title={cardTitle} chatHist={chatHist} mapObjs={mapObjs} setChatHist={setChatHist}></TalkCard>
         </div>
         <div className="w-2/3 h-screen bg-gray-950 flex flex-col items-center justify-center">
-          <Stage draggable className="bg-slate-900" width={1024} height={600}>
+          <Stage draggable className="bg-zinc-700" width={800} height={430}>
             <Layer>
-              <URLImage src={"https://raw.githubusercontent.com/erayline/flutter_derslerim/main/map.jpeg"}></URLImage>
+              <URLImage src={"https://raw.githubusercontent.com/erayline/flutter_derslerim/main/map01.jpeg"}></URLImage>
               {mapObjs.map((element, index) => {
 
                 let xCord = element.xCord;
@@ -164,10 +164,12 @@ export default function Home() {
                 return (
                   <Group key={index} x={xCord} y={yCord}>
                     <Text draggable
-                      x={xCord} y={yCord}
-                      width={110} height={110} align="center"
+                      text={`${element.emoji} -${element.name}`}
+                      fontSize={80}
+                      fill="white"
                       verticalAlign="middle"
-                      text={element.emoji +" " + element.name}
+                      width={110} height={110} align="center"
+                      x={xCord} y={yCord}
                       onMouseEnter={(e) => {
                         const container = e.target.getStage().container();
                         container.style.cursor = 'pointer';
@@ -176,9 +178,6 @@ export default function Home() {
                         const container = e.target.getStage().container();
                         container.style.cursor = 'default';
                       }}
-                      fontSize={80}
-                      
-                      fill="white"
                       onClick={((event) => handleClickEmoji(event, element, index))}
                     >
                     </Text>
@@ -193,7 +192,10 @@ export default function Home() {
           <p className="text-green-500">generate a map</p>
           <p className="text-blue-500">click an emoji</p>
           <p className="text-purple-500">start a convo with jenny(she is your gf, she acts different place to place) </p>
+          <p className="text-pink-500">you can drag the emojis, and map, place them wherever you like</p>
           <p className="text-orange-500">scroll down when you don't wanna text anymore :)</p>
+          <p className="text-red-500">this app is for improving your second language</p>
+          <a className="font-bold p-1 rounded-sm text-white hover:text-yellow-400 hover:bg-zinc-600" target="_blank" href="https://insigh.to/b/langscene">suggest feature:) or give feedback 🤏🏻  </a>
         </div>
       </div>
       <div id="sonucGetir" className="w-2/3">
