@@ -11,7 +11,7 @@ const TalkCard = (props) => {
   const getAnswer = useCallback(async () => {
     let currentChat = props.chatHist[props.chatIndex].chat;
     if (currentChat[currentChat.length - 1].sender === "user") {
-      let res = await fetch("http://localhost:3000/api/answer", {
+      let res = await fetch("https://lang-nu.vercel.app/api/answer", {
         method: "POST",
         body: JSON.stringify(currentChat),
       });
@@ -46,7 +46,7 @@ const TalkCard = (props) => {
   };
 
   const handleSubmit = (input, sender) => {
-    if(input.length >= 50){
+    if(input.length >= 20){
       props.setChatHist((prev) =>
         prev.map((element) =>
           element.id === props.chatIndex
@@ -97,7 +97,7 @@ const MyInputBubble = ({ handleMyInput, value }) => {
         onChange={(e) => handleMyInput(e.target.value)}
         className="text-white bg-gray-700 rounded-2xl font-bold h-16 w-2/3 p-2 rounded-1xl"
       />
-      <p>{value.length}/{50}</p>
+      <p>{value.length}/{20}</p>
     </div>
   );
 };
