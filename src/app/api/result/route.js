@@ -9,7 +9,7 @@ async function getResult(input) {
   //input is a text from the user
   console.log(input);
   
-  if(input.length> 50){
+  if(input.length> 30){
 
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
     const prompt = `you are an experienced english tutor for foreigners,analyise the text I will give you and fix my grammar mistakes, suggest better versions, give examples using that english topic. (use this to write a new line:<br>)(don't write the text back to me) HERE IS THE TEXT: ${input}`
