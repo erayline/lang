@@ -53,11 +53,11 @@ const ResultCard = (props) => {
     setTimeout(async () => {
       setResultText1(await getResult(chat1));
       
-    }, 2000);
+    }, 200);
     setTimeout(async () => {
       setResultText2(await getResult(chat2));
       
-    }, 4000);
+    }, 400);
   }
 
   return (
