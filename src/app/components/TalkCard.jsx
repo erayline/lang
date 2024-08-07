@@ -11,7 +11,7 @@ const TalkCard = (props) => {
   const getAnswer = useCallback(async () => {
     let currentChat = props.chatHist[props.chatIndex].chat;
     if (currentChat[currentChat.length - 1].sender === "user") {
-      let res = await fetch("https://lang-nu.vercel.app/api/answer", {
+      let res = await fetch("https://langscene.vercel.app/api/answer", {
         method: "POST",
         body: JSON.stringify(currentChat),
       });
