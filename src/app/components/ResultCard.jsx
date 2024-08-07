@@ -11,7 +11,7 @@ const ResultCard = (props) => {
   let [chat2, setChat2] = useState("");
 
   async function getResult(input) {
-    let res = await fetch("https://lang-nu.vercel.app/api/result", {
+    let res = await fetch("https://langscene.vercel.app/api/result", {
       method: "POST",
       body: JSON.stringify(input),
     });
